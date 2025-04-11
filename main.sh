@@ -8,3 +8,14 @@ else
     WORDS=("$@")
 fi
 
+for i in "${WORDS[@]}"; do
+    I_LOWER="${i,,}"
+    for j in "${DATA[@]}"; do
+        J_LOWER="${j,,}"
+        if [ "$I_LOWER" = "$J_LOWER" ]; then
+            echo "YES $I_LOWER"
+            break
+        fi
+    done
+done
+
