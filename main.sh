@@ -1,4 +1,4 @@
-declere -A points=(
+declare -A points=(
     [a]=1
     [b]=3
     [c]=3
@@ -52,14 +52,22 @@ else
 fi
 
 for i in "${WORDS[@]}"; do
+    INDICTIONARY="NONE"
     I_LOWER="${i,,}"
+    SUMA=0
+    for (( a=0; a<${#I_LOWER}; a++ )); do
+        z="${I_LOWER:a:1}"
+        SUMA=$(( SUMA + ${points[$z]} ))
+    done
     for j in "${DATA[@]}"; do
         J_LOWER="${j,,}"
         if [ "$I_LOWER" = "$J_LOWER" ]; then
-            echo "YES $I_LOWER"
+            INDICTIONARY="YES"
             break
         fi
     done
+    if [ "$INDICTIONARY" = "NONE" ]; then
+        INDICTIONARY="NO"
+    fi
+    echo "$INDICTIONARY $I_LOWER $SUMA"
 done
-
-
