@@ -1,3 +1,30 @@
+declere -A points=(
+    [a]=1
+    [b]=3
+    [c]=3
+    [d]=2
+    [e]=1
+    [f]=4
+    [g]=2
+    [h]=4
+    [i]=1
+    [j]=8
+    [k]=5
+    [l]=1
+    [n]=1
+    [m]=3
+    [o]=1
+    [p]=3
+    [r]=1
+    [s]=1
+    [t]=1
+    [u]=1
+    [q]=10
+    [w]=4
+    [y]=4
+    [x]=8
+    [z]=10
+)
 PLIK="/usr/share/dict/words"
 mapfile -t DATA < "$PLIK"
 #echo "${DATA[@]}"
