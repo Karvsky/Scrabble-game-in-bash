@@ -31,18 +31,24 @@ mapfile -t DATA < "$PLIK"
 variable="nothing"
 echo "Jeśli chcesz użyć własnej biblioteki wpisz TAK, natomiast jeśli chcesz użyć wbudowanej biblioteki wpisz NIE: "
 read VARIABLE
-while [[ "$VARIABLE" != "TAK" && "$VARIABLE" != "NIE" ]];
-do
-    echo "Podales zla mozliwa odpowiedz. Napisz jeszcze raz: "
+while [[ "$(echo "$VARIABLE" | tr '[:upper:]' '[:lower:]')" != "tak" && "$(echo "$VARIABLE" | tr '[:upper:]' '[:lower:]')" != "nie" ]]; do
+    echo "Podałeś złą możliwą odpowiedź. Napisz jeszcze raz: "
     read VARIABLE
 done
-
-if [ "$VARIABLE" = "TAK" ]; then
-    echo "Podaj sciezke do twojego slownika: "
-    read PLIK
-    mapfile -t DATA < "$PLIK" #mozna dodac pozniej opcje sprawdzenia czy uzytkownik nie popelnil bledu przy wpisywaniu
-    #nie sprawdzalem jeszcze czy dziala dodawanie wlasnej sciezki
+VARIABLE="$(echo "$VARIABLE" | tr '[:upper:]' '[:lower:]')"
+if [ "$VARIABLE" = "tak" ]; then
+    while true; do
+        echo "Podaj ścieżkę do twojego słownika: "
+        read PLIK
+        if [ -f "$PLIK" ]; then
+            mapfile -t DATA < "$PLIK"
+            break
+        else
+            echo "Plik nie istnieje. Spróbuj ponownie."
+        fi
+    done
 fi
+
 
 if [ "$#" -eq 0 ]; then
     echo "Podaj slowa linijka po linijce. Jak chcesz zakonczyc nacisnij ctrl+D:"
